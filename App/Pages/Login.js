@@ -5,14 +5,14 @@ import { Ionicons } from '@expo/vector-icons';
 const loginImage = require('./../Assets/Images/login.png');
 import * as WebBrowser from 'expo-web-browser';
 import * as Google from 'expo-auth-session/providers/google';
-// import { AuthContext } from '../Context/AuthContext';
+import { AuthContext } from '../Context/AuthContext';
 
 const Login = () => {
   WebBrowser.maybeCompleteAuthSession();
 
   const [accessToken, setAccessToken] = useState();
   const [userInfo, setUserInfo] = useState();
-  //   const { userData, setUserData } = useContext(AuthContext);
+  const { userData, setUserData } = useContext(AuthContext);
 
   const [request, response, promptAsync] = Google.useAuthRequest({
     androidClientId:
@@ -48,10 +48,10 @@ const Login = () => {
   };
 
   return (
-    <View>
+    <View style={styles.wrapper}>
       <Image source={loginImage} />
       <View style={styles.container}>
-        <Text style={styles.welcomeText}>Welcome to CodeBox</Text>
+        <Text style={styles.welcomeText}>Welcome to GoGoSpace</Text>
         <Text style={styles.loginText}>Login/SignUp</Text>
         <TouchableOpacity style={styles.button} onPress={() => promptAsync()}>
           <Ionicons
@@ -70,12 +70,18 @@ const Login = () => {
 export default Login;
 
 const styles = StyleSheet.create({
+  wrapper: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   container: {
     paddingTop: 40,
+    padding: 78,
     marginTop: -20,
     backgroundColor: '#fff',
     borderTopRightRadius: 30,
-    borderBottomLeftRadius: 30,
+    borderTopLeftRadius: 30,
   },
   welcomeText: {
     fontSize: 35,
